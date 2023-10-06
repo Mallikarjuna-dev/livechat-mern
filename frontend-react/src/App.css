@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  background-image: url("./background1.png");
+  background-size: cover;
+  background-position: calc();
+}
+
+.popin {
+  font-family: "Source Sans Pro", Arial, sans-serif;
 }
