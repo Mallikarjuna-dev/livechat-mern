@@ -1,16 +1,52 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  console.log(email, password);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => setShow(!show);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    if (!email || !password) {
+      toast.error("Please fill all the required fields!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const config = {
+        Headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        "/api/user/login",
+        { email, password },
+        config
+      );
+
+      toast.success("Login Successful");
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast.error("Registration failed!", error);
+      setLoading(false);
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+      console.log("Form submitted!");
+    }, 2000);
   };
 
   return (
@@ -58,9 +94,10 @@ const Login = () => {
           <div className="flex flex-col w-full text-white">
             <button
               type="submit"
+              disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 duration-300 font-medium py-1.5 rounded-md"
             >
-              Login
+              {loading ? "Loading..." : "Sign Up"}
             </button>
             <button
               className=" bg-red-600 hover:bg-red-800 duration-300 mt-2 font-normal py-1.5 rounded-md"

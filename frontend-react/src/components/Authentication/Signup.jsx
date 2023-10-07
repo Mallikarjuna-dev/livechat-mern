@@ -1,19 +1,97 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [picture, setPicture] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pic, setPic] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate("");
 
   const handleClick = () => setShow(!show);
 
-  const PostDetails = (pics) => {};
+  const PostDetails = (pics) => {
+    setLoading(true);
+    if (pics === undefined) {
+      toast.warn("Please choose an Image!");
+      return;
+    }
 
-  const onSubmit = (e) => {
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "livechat-app");
+      data.append("cloud_name", "dswkan4ep");
+      fetch("https://api.cloudinary.com/v1_1/dswkan4ep/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      toast.error("Please select an Image!");
+      return;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    if (!name || !email || !password || !confirmPassword) {
+      toast.error("Please fill all the required fields!");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Password must be at same!");
+      return;
+    }
+
+    try {
+      const config = {
+        Headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        "/api/user",
+        {
+          name,
+          email,
+          password,
+          pic,
+        },
+        config
+      );
+
+      toast.success("Registaration Successful");
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      toast.error("Registration failed!", error);
+      setLoading(false);
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+      console.log("Form submitted!");
+    }, 2000); // Simulating a 2-second delay
   };
 
   return (
@@ -21,7 +99,7 @@ const Signup = () => {
       <section>
         <form
           className="flex flex-col gap-y-1.5 my-2 px-1 text-start"
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
         >
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
@@ -96,7 +174,6 @@ const Signup = () => {
               type="file"
               id="pic"
               className="my-2 py-1 px-3 border bg-gray-100 rounded-md"
-              value={picture}
               accept="image/*"
               onChange={(e) => PostDetails(e.target.files[0])}
             />
@@ -104,9 +181,10 @@ const Signup = () => {
           <div className="flex flex-col w-full text-white">
             <button
               type="submit"
+              disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 duration-300 font-medium py-1.5 rounded-md"
             >
-              Sign Up
+              {loading ? "Loading..." : "Sign Up"}
             </button>
           </div>
         </form>
