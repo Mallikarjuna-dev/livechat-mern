@@ -13,7 +13,12 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/chats" element={<Chatpage />} />
       </Routes>
-      <ToastContainer position="top-right" closeOnClick autoClose={5000} />
+      <ToastContainer
+        position="bottom-center"
+        theme="colored"
+        closeOnClick
+        autoClose={3000}
+      />
       {/* </BrowserRouter> */}
     </div>
   );

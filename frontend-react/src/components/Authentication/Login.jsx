@@ -70,6 +70,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
               Password<span className="text-red-600">*</span>
@@ -91,13 +92,14 @@ const Login = () => {
               </button>
             </div>
           </div>
+
           <div className="flex flex-col w-full text-white">
             <button
               type="submit"
               disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 duration-300 font-medium py-1.5 rounded-md"
             >
-              {loading ? "Loading..." : "Sign Up"}
+              {loading ? "Loading..." : "Login"}
             </button>
             <button
               className=" bg-red-600 hover:bg-red-800 duration-300 mt-2 font-normal py-1.5 rounded-md"
