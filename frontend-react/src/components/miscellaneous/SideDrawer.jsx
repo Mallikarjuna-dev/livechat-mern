@@ -14,6 +14,7 @@ import {
   Avatar,
   List,
   Input,
+  Spinner,
 } from "@material-tailwind/react";
 import ProfileModal from "./ProfileModel";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ const SideDrawer = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingChat, setLoadingChat] = useState();
+  const [loadingChat, setLoadingChat] = useState(false);
 
   const [openLeft, setOpenLeft] = React.useState(false);
 
@@ -78,6 +79,10 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.post("/api/chat", { userId }, config);
+
+      if (!chats.find((c) => c._id === data._id)) {
+        setChats([data, ...chats]);
+      }
       setSelectedChat(data);
       setLoadingChat(false);
       closeDrawerLeft();
@@ -226,6 +231,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
+            {loadingChat && <Spinner className="h-8 w-8" />}
           </List>
         </Drawer>
       </div>

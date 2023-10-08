@@ -7,7 +7,7 @@ const ChatProvider = ({ children }) => {
   const [user, setuser] = useState();
   const [selectedChat, setSelectedChat] = useState();
   const [notification, setNotification] = useState([]);
-  const [chats, setChats] = useState();
+  const [chats, setChats] = useState([]);
 
   const navigate = useNavigate();
 
