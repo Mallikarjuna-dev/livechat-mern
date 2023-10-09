@@ -15,8 +15,9 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
+
       const { data } = await axios.get("/api/chat", config);
-      //   console.log(data);
+      console.log(data);
       setChats(data);
     } catch (error) {
       toast.error("Error Occured! Failed to Load Chats!");
@@ -29,7 +30,7 @@ const MyChats = () => {
   }, []);
 
   return (
-    <div>
+    <div className={`  ${selectedChat ? "hidden" : "flex"} md:flex `}>
       <div className="w-full md:col-span-1 p-4 border rounded-lg bg-white">
         MyChats
       </div>

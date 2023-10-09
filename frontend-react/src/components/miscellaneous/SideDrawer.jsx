@@ -83,6 +83,7 @@ const SideDrawer = () => {
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }
+
       setSelectedChat(data);
       setLoadingChat(false);
       closeDrawerLeft();
@@ -231,7 +232,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
-            {loadingChat && <Spinner className="h-8 w-8" />}
+            {loadingChat && <Spinner className="ml-52 mt-2 h-8 w-8" />}
           </List>
         </Drawer>
       </div>
