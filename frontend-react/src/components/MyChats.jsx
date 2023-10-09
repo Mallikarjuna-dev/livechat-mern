@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Box } from "@chakra-ui/react";
 
 const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState();
