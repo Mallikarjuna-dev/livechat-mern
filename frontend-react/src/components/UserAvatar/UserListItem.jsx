@@ -3,7 +3,10 @@ import { Avatar, ListItem, ListItemPrefix } from "@material-tailwind/react";
 
 const UserListItem = ({ user, handleFunction }) => {
   return (
-    <ListItem onClick={handleFunction} className="flex">
+    <ListItem
+      onClick={handleFunction}
+      className="flex py-2 bg-gray-100 hover:bg-[#38B2AC]"
+    >
       <ListItemPrefix>
         <Avatar
           variant="circular"

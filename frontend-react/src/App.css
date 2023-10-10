@@ -12,3 +12,7 @@
 .popin {
   font-family: "Source Sans Pro", Arial, sans-serif;
 }
+
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
