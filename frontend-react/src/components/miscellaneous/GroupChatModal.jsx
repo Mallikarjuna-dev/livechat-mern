@@ -66,7 +66,7 @@ const GroupChatModal = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        "/api/user/group",
+        "/api/chat/group",
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),
@@ -75,7 +75,11 @@ const GroupChatModal = ({ children }) => {
       );
 
       setChats(data, ...chats);
-    } catch (error) {}
+      onClose();
+      toast.success("New Group chat Created!");
+    } catch (error) {
+      toast.error("Failed to create group chat");
+    }
   };
 
   const handleDelete = (deleteUser) => {
