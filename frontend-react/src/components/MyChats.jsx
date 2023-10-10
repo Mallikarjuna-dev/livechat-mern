@@ -6,6 +6,7 @@ import { Button } from "@material-tailwind/react";
 import { BsPlus } from "react-icons/bs";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
+import GroupChatModal from "./miscellaneous/GroupChatModal";
 
 const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState();
@@ -21,7 +22,7 @@ const MyChats = () => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
+      // console.log(data);
       setChats(data);
     } catch (error) {
       toast.error("Error Occured! Failed to Load Chats!");
@@ -41,15 +42,17 @@ const MyChats = () => {
     >
       <div className="flex flex-row justify-between px-2 items-center">
         <h1 className="text-lg font-medium">MyChats</h1>
-        <Button
-          className="flex px-2 my-1 text-sm items-center font-semibold py-2 border"
-          style={{ textTransform: "none" }}
-          size="md"
-          variant="text"
-        >
-          New Group Chat
-          <BsPlus className="text-xl ml-1 font-semibold" />
-        </Button>
+        <GroupChatModal>
+          <Button
+            className="flex px-2 my-1 text-sm items-center font-semibold py-2 border"
+            style={{ textTransform: "none" }}
+            size="md"
+            variant="text"
+          >
+            New Group Chat
+            <BsPlus className="text-xl ml-1 font-semibold" />
+          </Button>
+        </GroupChatModal>
       </div>
       <div className="flex flex-col p-2">
         {chats ? (
@@ -64,11 +67,11 @@ const MyChats = () => {
                 } border-y-0 rounded-lg duration-100`}
                 onClick={() => setSelectedChat(chat)}
               >
-                <text>
+                <div>
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
-                </text>
+                </div>
               </div>
             ))}
           </div>

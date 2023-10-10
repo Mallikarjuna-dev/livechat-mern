@@ -77,15 +77,14 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.post("/api/chat", { userId }, config);
 
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }
 
-      setSelectedChat(data);
       setLoadingChat(false);
+      setSelectedChat(data);
       closeDrawerLeft();
     } catch (error) {
       toast.error("Error fetching the chat!");

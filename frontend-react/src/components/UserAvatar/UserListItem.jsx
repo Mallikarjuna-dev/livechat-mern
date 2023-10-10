@@ -5,7 +5,7 @@ const UserListItem = ({ user, handleFunction }) => {
   return (
     <ListItem
       onClick={handleFunction}
-      className="flex py-2 bg-gray-100 hover:bg-[#38B2AC]"
+      className="flex py-2 mt-1 bg-gray-100 hover:bg-[#38B2AC]"
     >
       <ListItemPrefix>
         <Avatar
