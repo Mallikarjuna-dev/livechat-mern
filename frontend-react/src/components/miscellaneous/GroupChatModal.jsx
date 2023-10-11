@@ -1,7 +1,6 @@
 import {
   Button,
   FormControl,
-  Image,
   Input,
   Modal,
   ModalBody,
@@ -10,7 +9,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";

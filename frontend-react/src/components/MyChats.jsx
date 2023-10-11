@@ -8,7 +8,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
@@ -32,13 +32,13 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
 
   return (
     <div
       className={`w-full popin relative md:h-[87vh] md:col-span-1  ${
         selectedChat ? "hidden md:flex" : "flex"
-      } flex-col  p-2 border rounded-lg bg-white`}
+      } flex-col p-2 border rounded-lg bg-white`}
     >
       <div className="flex flex-row justify-between px-2 items-center">
         <h1 className="text-lg font-medium">MyChats</h1>
@@ -55,7 +55,7 @@ const MyChats = () => {
         </GroupChatModal>
       </div>
       <div className="flex flex-col p-2">
-        {chats ? (
+        {Array.isArray(chats) ? (
           <div className="space-y-1 h-[76vh] scrollbar overflow-y-auto">
             {chats.map((chat) => (
               <div

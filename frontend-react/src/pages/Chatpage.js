@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import SideDrawer from "../components/miscellaneous/SideDrawer";
 import MyChats from "../components/MyChats";
@@ -6,14 +6,17 @@ import ChatBody from "../components/ChatBody";
 
 const Chatpage = () => {
   const { user } = ChatState();
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
     <div className="w-full border h-screen overflow-hidden">
       {user && <SideDrawer />}
       <div className="p-4 w-full md:w-3/3">
         <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-4">
-          {user && <MyChats />}
-          {user && <ChatBody />}
+          {user && <MyChats fetchAgain={fetchAgain} />}
+          {user && (
+            <ChatBody fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+          )}
         </div>
       </div>
     </div>
