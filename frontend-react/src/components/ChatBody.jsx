@@ -25,6 +25,8 @@ const ChatBody = () => {
         </Button>
         {/* <h1 className="text-lg popin font-bold text-[#302456]">Madhu</h1> */}
       </div>
+
+      <div></div>
     </div>
   );
 };
