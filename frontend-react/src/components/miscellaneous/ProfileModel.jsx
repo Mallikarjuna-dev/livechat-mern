@@ -19,7 +19,7 @@ const ProfileModal = ({ user, children }) => {
 
   return (
     <>
-      {children ? (
+      {/* {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
         <IconButton
@@ -27,7 +27,8 @@ const ProfileModal = ({ user, children }) => {
           icon={<BsFillEyeFill />}
           onClick={onOpen}
         />
-      )}
+      )} */}
+      <span onClick={onOpen}>{children}</span>
       <Modal size="sm" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent h="360px">

@@ -9,7 +9,7 @@ const Chatpage = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
-    <div className="w-full border h-screen overflow-hidden">
+    <div className="w-full popin border h-screen overflow-hidden">
       {user && <SideDrawer />}
       <div className="p-4 w-full md:w-3/3">
         <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-4">
