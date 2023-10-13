@@ -18,6 +18,7 @@ const Homepage = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
   return (
     <div className="container w-4/5 md:w-4/6 lg:w-3/5 xl:w-2/5 mx-auto mt-16 popin">
       <div className="bg-white my-3 rounded-lg">

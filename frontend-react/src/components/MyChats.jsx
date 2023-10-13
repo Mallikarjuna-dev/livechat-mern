@@ -54,6 +54,7 @@ const MyChats = ({ fetchAgain }) => {
           </Button>
         </GroupChatModal>
       </div>
+
       <div className="flex flex-col p-2">
         {Array.isArray(chats) ? (
           <div className="space-y-1 h-[76vh] scrollbar overflow-y-auto">
