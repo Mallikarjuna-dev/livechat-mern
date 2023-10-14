@@ -8,11 +8,11 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
-  IconButton,
+  // IconButton,
   Text,
   Image,
 } from "@chakra-ui/react";
-import { BsFillEyeFill } from "react-icons/bs";
+// import { BsFillEyeFill } from "react-icons/bs";
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
