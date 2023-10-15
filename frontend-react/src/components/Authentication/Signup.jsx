@@ -113,6 +113,7 @@ const Signup = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
               Email Address<span className="text-red-600">*</span>
@@ -126,6 +127,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
               Password<span className="text-red-600">*</span>
@@ -147,6 +149,7 @@ const Signup = () => {
               </button>
             </div>
           </div>
+
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
               Confirm Password<span className="text-red-600">*</span>
@@ -168,6 +171,7 @@ const Signup = () => {
               </button>
             </div>
           </div>
+
           <div className="flex flex-col">
             <label className="text-sm font-semibold">Upload your Picture</label>
             <input
@@ -178,6 +182,7 @@ const Signup = () => {
               onChange={(e) => PostDetails(e.target.files[0])}
             />
           </div>
+
           <div className="flex flex-col w-full text-white">
             <button
               type="submit"
