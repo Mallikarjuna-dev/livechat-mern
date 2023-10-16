@@ -88,7 +88,6 @@ const GroupChatModal = ({ children }) => {
     if (!selectedUsers.includes(userToAdd)) {
       toast.warn("User already added");
     }
-
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
 
