@@ -63,6 +63,9 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
                 mb={3}
                 // onChange={(e) => setGroupChatName(e.target.value)}
               />
+              <Button colorScheme="teal" isLoading={renameLoading}>
+                Update
+              </Button>
             </FormControl>
             <FormControl>
               <Input
