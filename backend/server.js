@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/chat", require("./routes/chatRoutes"));
+app.use("/api/message", require("./routes/messageRoutes"));
 
 app.use(notFound);
 app.use(errorHandler);
