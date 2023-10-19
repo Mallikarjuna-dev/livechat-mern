@@ -36,7 +36,7 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <div
-      className={`w-full popin relative md:h-[87vh] md:col-span-1  ${
+      className={`w-full popin relative h-[88vh] md:h-[89vh] md:col-span-1  ${
         selectedChat ? "hidden md:flex" : "flex"
       } flex-col p-2 border rounded-lg bg-white`}
     >
@@ -57,15 +57,15 @@ const MyChats = ({ fetchAgain }) => {
 
       <div className="flex flex-col p-2">
         {Array.isArray(chats) ? (
-          <div className="space-y-1 h-[76vh] scrollbar overflow-y-auto">
+          <div className="space-y-0.5 h-[76vh] scrollbar overflow-y-auto">
             {chats.map((chat) => (
               <div
                 key={chat._id}
                 className={`cursor-pointer text-left p-3 ${
                   selectedChat === chat
                     ? "bg-[#38B2AC] text-white"
-                    : "bg-gray-200 hover:bg-gray-100 text-black"
-                } border-y-0 rounded-lg duration-100`}
+                    : "bg-gray-100 hover:bg-gray-200 text-black"
+                } border-b rounded-md duration-100`}
                 onClick={() => setSelectedChat(chat)}
               >
                 <div>

@@ -11,8 +11,8 @@ const Chatpage = () => {
   return (
     <div className="w-full popin border h-screen overflow-hidden">
       {user && <SideDrawer />}
-      <div className="p-4 w-full md:w-3/3">
-        <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-4">
+      <div className="p-1 md:p-3 w-full md:w-3/3">
+        <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-3">
           {user && <MyChats fetchAgain={fetchAgain} />}
           {user && (
             <ChatBody fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />

@@ -69,7 +69,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
             {/* <h1 className="text-lg popin font-bold text-[#302456]">Madhu</h1> */}
           </div>
-          <div className="w-full h-[76vh] flex flex-col bg-gray-200 justify-end border rounded-lg scrollbar overflow-y-auto">
+          <div className="w-full h-[79vh] flex flex-col bg-gray-200 justify-end border rounded-lg scrollbar overflow-y-auto">
             <h1>Content</h1>
           </div>
         </div>
