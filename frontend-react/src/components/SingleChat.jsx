@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
-import { Button } from "@material-tailwind/react";
+import { Button, Input, Spinner } from "@material-tailwind/react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import { getSender, getSenderFull } from "../config/ChatLogics";
@@ -8,13 +8,19 @@ import ProfileModal from "./miscellaneous/ProfileModel";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState();
+
   const { user, selectedChat, setSelectedChat } = ChatState();
+
+  const sendMessage = () => {};
 
   return (
     <>
       {selectedChat ? (
         <div className="space-y-1">
-          <div className="flex box-content justify-between items-center px-2">
+          <div className="flex box-content justify-between items-center md:px-2">
             <Button
               className="px-3 flex md:hidden my-1 text-sm items-center font-semibold py-2 border"
               size="md"
@@ -66,11 +72,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </UpdateGroupChatModal>
               </>
             )}
-
-            {/* <h1 className="text-lg popin font-bold text-[#302456]">Madhu</h1> */}
           </div>
-          <div className="w-full h-[79vh] flex flex-col bg-gray-200 justify-end border rounded-lg scrollbar overflow-y-auto">
-            <h1>Content</h1>
+
+          <div className="w-full p-1 md:p-2 h-[79vh] flex flex-col bg-gray-200 justify-end border rounded-lg scrollbar overflow-y-auto">
+            {loading ? (
+              <Spinner className="self-center m-auto h-8 w-8 md:h-14 md:w-14" />
+            ) : (
+              <div>M</div>
+            )}
+
+            <div onKeyDown={sendMessage} className="mt-2">
+              <Input placeholder="" />
+            </div>
+            {/* <h1>Content</h1> */}
           </div>
         </div>
       ) : (
