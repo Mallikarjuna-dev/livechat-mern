@@ -16,6 +16,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage = () => {};
 
+  const typingHandler = () => {};
+
   return (
     <>
       {selectedChat ? (
@@ -81,8 +83,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <div>M</div>
             )}
 
-            <div onKeyDown={sendMessage} className="mt-2">
-              <Input placeholder="" />
+            <div
+              onKeyDown={sendMessage}
+              className="bg-gray-300 rounded-lg mt-1"
+            >
+              <Input
+                className="rounded-lg"
+                placeholder="Enter a message.."
+                onChange={{ typingHandler }}
+                value={newMessage}
+              />
             </div>
             {/* <h1>Content</h1> */}
           </div>
