@@ -6,6 +6,8 @@ import { BiArrowBack } from "react-icons/bi";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModel";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -14,9 +16,36 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const { user, selectedChat, setSelectedChat } = ChatState();
 
-  const sendMessage = () => {};
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${user.token}`,
+          },
+        };
 
-  const typingHandler = () => {};
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
+
+        setNewMessage("");
+        setMessages([...messages, data]);
+      } catch (error) {
+        toast.error("Error, Failed to send message");
+      }
+    }
+  };
+
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value);
+  };
 
   return (
     <>
