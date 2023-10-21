@@ -109,7 +109,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {loading ? (
               <Spinner className="self-center m-auto h-8 w-8 md:h-14 md:w-14" />
             ) : (
-              <div>M</div>
+              <div>Ma</div>
             )}
 
             <div
