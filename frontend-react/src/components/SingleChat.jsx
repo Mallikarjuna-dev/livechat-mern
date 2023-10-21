@@ -123,6 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 value={newMessage}
               />
             </div>
+            
             {/* <h1>Content</h1> */}
           </div>
         </div>
