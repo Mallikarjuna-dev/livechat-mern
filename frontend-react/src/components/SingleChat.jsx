@@ -109,7 +109,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {loading ? (
               <Spinner className="self-center m-auto h-8 w-8 md:h-14 md:w-14" />
             ) : (
-              <div>Ma</div>
+              <div>C</div>
             )}
 
             <div
@@ -123,7 +123,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 value={newMessage}
               />
             </div>
-            
             {/* <h1>Content</h1> */}
           </div>
         </div>
