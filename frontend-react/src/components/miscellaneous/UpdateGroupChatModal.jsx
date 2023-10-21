@@ -203,6 +203,7 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
+            
             {/* render searched users */}
             {/* <div className="w-full flex justify-center flex-wrap gap-1">
               {selectedUsers.map((usr) => (
