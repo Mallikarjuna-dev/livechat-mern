@@ -123,7 +123,6 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
     } catch (error) {
       toast.error("Error, couldn't update group name!");
     }
-
     setGroupChatName("");
   };
 
@@ -151,7 +150,6 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
   };
 
   // const handleSubmit = () => {};
-
   return (
     <div>
       <span onClick={onOpen}>{children}</span>
@@ -203,7 +201,7 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
-            
+
             {/* render searched users */}
             {/* <div className="w-full flex justify-center flex-wrap gap-1">
               {selectedUsers.map((usr) => (

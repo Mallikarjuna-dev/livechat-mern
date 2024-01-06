@@ -28,7 +28,6 @@ const SideDrawer = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
-
   const [openLeft, setOpenLeft] = React.useState(false);
 
   const openDrawerLeft = () => setOpenLeft(true);
