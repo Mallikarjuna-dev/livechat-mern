@@ -56,7 +56,6 @@ const Signup = () => {
       setLoading(false);
       return;
     }
-
     if (password !== confirmPassword) {
       toast.error("Password must be at same!");
       return;
