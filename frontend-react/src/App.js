@@ -13,7 +13,6 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/chats" element={<Chatpage />} />
       </Routes>
-      
       <ToastContainer
         position="bottom-center"
         theme="colored"
