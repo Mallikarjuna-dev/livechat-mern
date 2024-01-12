@@ -57,7 +57,6 @@ const UserListItem = ({ user, handleFunction }) => {
     // </Box>
   );
 };
-
 export default UserListItem;
 
 /* <ListItem>
