@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const port = process.env.PORT || 5000;
 
-connectDB();
+connectDB(); //connection to the mongo
 
 const app = express();
 

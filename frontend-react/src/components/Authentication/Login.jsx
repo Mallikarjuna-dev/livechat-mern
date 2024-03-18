@@ -10,7 +10,13 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleClick = () => setShow(!show);
+  // const handleClick = () => setShow(!show);
+  const handleClick = (e, inputType) => {
+    if (inputType === "password") {
+      e.preventDefault();
+    }
+    setShow(!show);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +45,7 @@ const Login = () => {
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      toast.error("Registration failed!", error);
+      toast.error("Login failed!", error);
       setLoading(false);
     }
 
@@ -86,7 +92,8 @@ const Login = () => {
               />
               <button
                 className="absolute inset-y-0 right-0 font-semibold text-sm pr-5 flex items-center w-auto text-black"
-                onClick={handleClick}
+                // onClick={handleClick}
+                onClick={(e) => handleClick(e, "password")}
               >
                 {show ? "Hide" : "Show"}
               </button>

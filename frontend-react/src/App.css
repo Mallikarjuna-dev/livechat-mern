@@ -6,7 +6,7 @@
   display: flex;
   background-image: url("./background1.png");
   background-size: cover;
-  background-position: calc();
+  background-position: center;
 }
 
 .popin {

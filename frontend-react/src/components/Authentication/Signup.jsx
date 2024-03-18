@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import OtpInput from "otp-input-react";
 import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [number, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate("");
 
-  const handleClick = () => setShow(!show);
+  // const handleClick = () => setShow(!show);
+  const handleClick = (e, inputType) => {
+    if (inputType === "password") {
+      e.preventDefault();
+    }
+    setShow(!show);
+  };
 
   const PostDetails = (pics) => {
     setLoading(true);
@@ -51,7 +59,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !number || !password || !confirmPassword) {
       toast.error("Please fill all the required fields!");
       setLoading(false);
       return;
@@ -72,6 +80,7 @@ const Signup = () => {
         {
           name,
           email,
+          number,
           password,
           pic,
         },
@@ -102,12 +111,14 @@ const Signup = () => {
         >
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
-              Name<span className="text-red-600">*</span>
+              Name <span className="text-red-600">*</span>
             </label>
             <input
-              type="name"
-              className="my-2 py-1 px-3 border-blue-500 bg-gray-100 rounded-md"
+              type="text"
+              id="email"
+              className="my-1.5 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               value={name}
+              required
               placeholder="Enter your name"
               onChange={(e) => setName(e.target.value)}
             />
@@ -115,34 +126,63 @@ const Signup = () => {
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
-              Email Address<span className="text-red-600">*</span>
+              Email Address <span className="text-red-600">*</span>
             </label>
             <input
               type="email"
               id="email"
-              className="my-2 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+              className="my-1.5 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               value={email}
-              placeholder="Enter your Email"
+              required
+              placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
-              Password<span className="text-red-600">*</span>
+              Mobile Number <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="number"
+              id="number"
+              className="my-1.5 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+              value={number}
+              required
+              placeholder="Enter your mobile number"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-wrap">
+            <label className="text-sm font-semibold my-1 mr-2">
+              Enter your OTP <span className="text-red-600">*</span>
+            </label>
+            <OtpInput
+              OTPLength={6}
+              otpType="number"
+              disabled={false}
+              autoFocus
+              className="opt-container"
+            ></OtpInput>
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold">
+              Password <span className="text-red-600">*</span>
             </label>
             <div className="relative">
               <input
                 type={show ? "text" : "password"}
                 id="password"
-                className="my-2 py-1 w-full px-3 border bg-gray-100 rounded-md"
+                className="my-1.5 py-1 w-full px-3 border bg-gray-100 rounded-md"
                 value={password}
+                required
                 placeholder="Enter password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 className="absolute inset-y-0 right-0 font-semibold text-sm pr-5 flex items-center w-auto text-black"
-                onClick={handleClick}
+                onClick={(e) => handleClick(e, "password")}
               >
                 {show ? "Hide" : "Show"}
               </button>
@@ -151,20 +191,23 @@ const Signup = () => {
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
-              Confirm Password<span className="text-red-600">*</span>
+              Confirm Password <span className="text-red-600">*</span>
             </label>
             <div className="relative">
               <input
                 type={show ? "text" : "password"}
                 id="password"
-                className="my-2 py-1 w-full px-3 border bg-gray-100 rounded-md"
+                className="my-1.5 py-1 w-full px-3 border bg-gray-100 rounded-md"
                 value={confirmPassword}
-                placeholder="Enter password"
+                required
+                placeholder="Confirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <button
+                type="button"
                 className="absolute inset-y-0 right-0 font-semibold text-sm pr-5 flex items-center w-auto text-black"
-                onClick={handleClick}
+                // onClick={handleClick}
+                onClick={(e) => handleClick(e, "password")}
               >
                 {show ? "Hide" : "Show"}
               </button>
@@ -176,7 +219,7 @@ const Signup = () => {
             <input
               type="file"
               id="pic"
-              className="my-2 py-1 px-3 border bg-gray-100 rounded-md"
+              className="my-1.5 px-3 border bg-gray-100 rounded-md"
               accept="image/*"
               onChange={(e) => PostDetails(e.target.files[0])}
             />

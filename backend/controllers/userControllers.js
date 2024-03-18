@@ -7,9 +7,9 @@ const generateToken = require("../config/generateToken");
 // @route     POST api/user
 // @access    Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, number, password, pic } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !number || !password) {
     res.status(400);
     throw new Error("Please enter all the feilds!");
   }
@@ -29,6 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
+    number,
     password: hashedPassword,
     pic,
   });
@@ -38,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      number: user.number,
       pic: user.pic,
       token: generateToken(user._id),
     });
