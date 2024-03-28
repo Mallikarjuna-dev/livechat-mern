@@ -12,7 +12,7 @@ const Chatpage = () => {
     <div className="w-full popin border h-screen overflow-hidden">
       {user && <SideDrawer />}
 
-      <div className="p-1 md:px-2 w-full h-full md:w-3/3">
+      <div className="p-1 md:px-2 w-full h-[80vh] md:w-3/3">
         <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-2">
           {user && <MyChats fetchAgain={fetchAgain} />}
           {user && (
