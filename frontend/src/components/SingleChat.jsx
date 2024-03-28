@@ -214,7 +214,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )}
           </div>
 
-          <div className="w-full px-1 md:px-2 md:py-0.5 h-[85vh] md:h-[82vh] flex flex-col bg-gray-200 justify-end border rounded-lg">
+          <div className="w-full px-1 md:px-2 md:py-0.5 h-[82vh] md:h-[80vh] flex flex-col bg-gray-200 justify-end border rounded-lg">
             {loading ? (
               <Spinner className="self-center m-auto h-8 w-8 md:h-12 lg:w-15" />
             ) : (

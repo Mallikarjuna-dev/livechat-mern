@@ -56,7 +56,7 @@ const MyChats = ({ fetchAgain }) => {
 
       <div className="flex flex-col p-2">
         {Array.isArray(chats) ? (
-          <div className="space-y-1.5 h-[82vh] scrollbar overflow-y-auto">
+          <div className="space-y-1.5 h-[80vh] scrollbar overflow-y-auto">
             {chats.map((chat) => (
               <div
                 key={chat._id}
