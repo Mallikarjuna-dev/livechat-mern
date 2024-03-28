@@ -19,7 +19,12 @@ import { toast } from "react-toastify";
 import UserListItem from "../UserAvatar/UserListItem";
 import { Spinner } from "@material-tailwind/react";
 
-const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({
+  children,
+  fetchAgain,
+  setFetchAgain,
+  fetchMessages,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
@@ -36,10 +41,9 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
     }
 
     if (selectedChat.groupAdmin._id !== user._id) {
-      toast.error("Only admins can add users!");
+      toast.error("Only Admin can add users!");
       return;
     }
-
     try {
       setLoading(true);
       const config = {
@@ -56,7 +60,6 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
         },
         config
       );
-
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       setLoading(false);
@@ -67,10 +70,9 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
 
   const handleRemove = async (user1) => {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
-      toast.error("Only admin can remove users!");
+      toast.error("Only Admin can remove users!");
       return;
     }
-
     try {
       setLoading(true);
       const config = {
@@ -78,7 +80,6 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.put(
         "/api/chat/groupremove",
         {
@@ -87,9 +88,10 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
         },
         config
       );
-
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages();
+      onClose();
       setLoading(false);
     } catch (error) {
       toast.error("Error occured, while removing user!");
@@ -97,17 +99,17 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
   };
 
   const handleRename = async () => {
-    if (!groupChatName) return;
-
+    if (!groupChatName) {
+      toast.warn("Enter Chat name to update");
+      return;
+    }
     try {
       setRenameLoading(true);
-
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.put(
         "/api/chat/rename",
         {
@@ -116,9 +118,9 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
         },
         config
       );
-
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      toast.success("Group chat title updated");
       setRenameLoading(false);
     } catch (error) {
       toast.error("Error, couldn't update group name!");
@@ -133,13 +135,11 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
     }
     try {
       setLoading(true);
-
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       //   console.log(data);
       setLoading(false);
@@ -169,6 +169,7 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
 
           <ModalBody d="flex" flexDir="column" alignContent="center">
             <div className="w-full flex justify-center flex-wrap gap-1">
+              <p>Users :</p>
               {selectedChat.users.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -215,7 +216,7 @@ const UpdateGroupChatModal = ({ children, fetchAgain, setFetchAgain }) => {
 
             {loading ? (
               <div className="">
-                <Spinner className="mx-auto mt-3 h-6 w-6" />
+                <Spinner className="mx-auto mt-3 h-7 w-7" />
               </div>
             ) : (
               searchResult?.map((user) => (

@@ -5,7 +5,7 @@ const UserListItem = ({ user, handleFunction }) => {
   return (
     <ListItem
       onClick={handleFunction}
-      className="flex py-2 mt-1 bg-gray-100 hover:bg-[#38B2AC]"
+      className="flex py-1 mt-0.5 mx-1 w-[97%] bg-gray-100 hover:bg-[#86c9c4]"
     >
       <ListItemPrefix>
         <Avatar
@@ -15,7 +15,7 @@ const UserListItem = ({ user, handleFunction }) => {
           src={user.pic}
         />
       </ListItemPrefix>
-      <div className="text-black">
+      <div className="text-black -ml-1 pb-0.5">
         <p className="text-base">{user.name}</p>
         <p className="text-xs">
           <span className="font-semibold">Email:</span>

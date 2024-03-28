@@ -34,7 +34,7 @@ const ProfileModal = ({ user, children }) => {
         <ModalOverlay />
         <ModalContent h="360px">
           <ModalHeader
-            fontSize="36px"
+            fontSize="30px"
             fontFamily="Work sans"
             d="flex"
             textAlign="center"
@@ -44,25 +44,33 @@ const ProfileModal = ({ user, children }) => {
           <ModalCloseButton />
           <ModalBody
             d="flex"
-            mt="-6px"
+            mt="-15px"
             flexDir="column"
             alignContent="center"
             justifyContent="space-between"
           >
             <Image
               borderRadius="full"
-              boxSize="150px"
+              boxSize="128px"
               src={user.pic}
               alt={user.name}
-              ml="92px"
+              mx="auto"
             />
             <Text
-              fontSize={{ base: "28px", md: "30px" }}
+              fontSize={{ base: "20px", md: "24px" }}
               fontFamily="Work sans"
               textAlign="center"
               mt="6px"
             >
               Email: {user.email}
+            </Text>
+            <Text
+              fontSize={{ base: "20px", md: "24px" }}
+              fontFamily="Work sans"
+              textAlign="center"
+              mt="4px"
+            >
+              Phone: {user.phone.slice(2)}
             </Text>
           </ModalBody>
           <ModalFooter>

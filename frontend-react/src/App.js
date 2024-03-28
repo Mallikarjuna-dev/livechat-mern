@@ -17,7 +17,7 @@ function App() {
         position="bottom-center"
         theme="colored"
         closeOnClick
-        autoClose={3000}
+        autoClose={2000}
       />
       {/* </BrowserRouter> */}
     </div>

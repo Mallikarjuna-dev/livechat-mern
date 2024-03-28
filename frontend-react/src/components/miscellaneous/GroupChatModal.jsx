@@ -41,7 +41,6 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       //   console.log(data);
       setLoading(false);
@@ -53,7 +52,7 @@ const GroupChatModal = ({ children }) => {
 
   const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
-      toast.warn("Please fill all the fields");
+      toast.warn("Please fill all the fields!");
       return;
     }
     try {
@@ -71,10 +70,10 @@ const GroupChatModal = ({ children }) => {
         },
         config
       );
-
       setChats(data, ...chats);
       onClose();
       toast.success("New Group chat Created!");
+      window.location.reload();
     } catch (error) {
       toast.error("Failed to create group chat");
     }
@@ -85,8 +84,9 @@ const GroupChatModal = ({ children }) => {
   };
 
   const handleGroup = (userToAdd) => {
-    if (!selectedUsers.includes(userToAdd)) {
+    if (selectedUsers.includes(userToAdd)) {
       toast.warn("User already added");
+      return;
     }
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
@@ -94,7 +94,12 @@ const GroupChatModal = ({ children }) => {
   return (
     <>
       <span onClick={onOpen}>{children}</span>
-      <Modal size={{ base: "sm", md: "md" }} onClose={onClose} isOpen={isOpen}>
+      <Modal
+        size={{ base: "sm", md: "md" }}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
@@ -107,17 +112,17 @@ const GroupChatModal = ({ children }) => {
           </ModalHeader>
           <ModalCloseButton />
 
-          <ModalBody d="flex" flexDir="column" alignContent="center">
+          <ModalBody d="flex" flexDir="column" mt="-3" alignContent="center">
             <FormControl>
               <Input
-                placeholder="Chat name"
+                placeholder="Chat Name"
                 mb={3}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add users Eg:Ak, Aj"
+                placeholder="Add Users eg: Aj, Ak.."
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />

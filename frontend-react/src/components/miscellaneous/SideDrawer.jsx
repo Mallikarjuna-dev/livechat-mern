@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
+import { getSender } from "../../config/ChatLogics";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
@@ -34,21 +35,28 @@ const SideDrawer = () => {
   const closeDrawerLeft = () => setOpenLeft(false);
 
   const navigate = useNavigate();
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
+    toast.success("Logged out success!");
     navigate("/");
   };
 
   const handleSearch = async () => {
     if (!search) {
       toast.warn("Please Enter something to search!", {
-        position: "top-left",
+        position: "bottom-left",
       });
       return;
     }
-
     try {
       setLoading(true);
 
@@ -57,9 +65,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -81,7 +87,6 @@ const SideDrawer = () => {
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }
-
       setLoadingChat(false);
       setSelectedChat(data);
       closeDrawerLeft();
@@ -92,39 +97,82 @@ const SideDrawer = () => {
 
   return (
     <>
-      <div className="flex justify-between bg-gray-100 px-6 py-3">
-        <div className="relative -ml-2">
+      <div className="flex justify-between bg-gray-100 px-4 md:px-6 py-1.5 md:py-2">
+        <div className="relative md:-ml-2 box-content">
           <input
             onClick={openDrawerLeft}
             type="text"
-            className="py-1 px-2 border w-52 bg-gray-100 rounded-md pl-8 transition-transform duration-300 transform hover:scale-105"
-            placeholder="Search users to chat"
+            className="py-1 px-1 border w-5 md:w-48 my-1 bg-gray-100 rounded-md pl-7 transition-transform duration-500 transform hover:scale-105"
+            placeholder="Search User to Chat"
           />
-          <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <div className="absolute inset-y-0 left-0 flex items-center px-2 pointer-events-none">
             <BsSearch className="text-gray-500" />
           </div>
         </div>
 
-        <div className="text-2xl font-thin text-gray-600">
+        <div className="lg:text-2xl text-xl my-auto font-semibold text-gray-600">
+          {/* <img src="" alt="" /> */}
           <h1>Talk-A-Tive</h1>
         </div>
 
         <div className="flex">
-          <button className="relative group focus:outline-none mr-3">
+          <Menu>
+            <MenuHandler>
+              <div className="mt-2">
+                <div className="box-content">
+                  {notification.length > 0 && (
+                    <div className="notification-badge">
+                      <span className="badge">{notification.length}</span>
+                    </div>
+                  )}
+                  <BsBellFill className="cursor-pointer text-2xl mr-6" />
+                </div>
+                <MenuList className=" -p-1 text-black rounded-xl">
+                  <MenuItem className=" text-gray-700 font-normal">
+                    {!notification.length && "No new messages"}
+                    {notification.map((notify) => (
+                      <div
+                        key={notify._id}
+                        className="mb-1"
+                        onClick={() => {
+                          setSelectedChat(notify.chat);
+                          setNotification(
+                            notification.filter((n) => n !== notify)
+                          );
+                        }}
+                      >
+                        {notify.chat.isGroupChat
+                          ? `New Message from ${notify.chat.chatName}`
+                          : `New Message from ${getSender(
+                              user,
+                              notify.chat.users
+                            )}`}
+                      </div>
+                    ))}
+                  </MenuItem>
+                </MenuList>
+              </div>
+            </MenuHandler>
+          </Menu>
+
+          {/* <button className="relative group focus:outline-none mr-6">
             <BsBellFill className="text-2xl" />
-            <div className="absolute hidden group-hover:block bg-white text-gray-600 p-2 rounded-lg shadow-md right-0 mt-2"></div>
-          </button>
+            <div className="absolute hidden group-hover:block bg-white text-gray-600 p-2 rounded-lg shadow-md right-0 mt-2">
+              {!notification.length && "No new messages"}
+            </div>
+          </button> */}
 
           <Menu>
             <MenuHandler>
               <Avatar
                 variant="circular"
                 alt={user.name}
-                className="cursor-pointer h-9 w-9"
+                name={user.name}
+                className="cursor-pointer h-10 w-10"
                 src={user.pic}
               />
             </MenuHandler>
-            <MenuList>
+            <MenuList className="p-2">
               <ProfileModal user={user}>
                 <MenuItem className="flex items-center gap-2">
                   <svg
@@ -133,7 +181,7 @@ const SideDrawer = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="h-4 w-4"
+                    className="h-5 w-5"
                   >
                     <path
                       strokeLinecap="round"
@@ -157,7 +205,7 @@ const SideDrawer = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="h-4 w-4"
+                  className="h-5 w-5"
                 >
                   <path
                     strokeLinecap="round"
@@ -175,13 +223,8 @@ const SideDrawer = () => {
       </div>
 
       <div>
-        <Drawer
-          placement="left"
-          open={openLeft}
-          onClose={closeDrawerLeft}
-          className="p-4"
-        >
-          <div className="mb-3 flex items-center justify-between">
+        <Drawer placement="left" open={openLeft} onClose={closeDrawerLeft}>
+          <div className="mb-3 flex items-center justify-between px-4 pt-3">
             <Typography variant="h5" color="blue-gray">
               Search Users
             </Typography>
@@ -207,15 +250,15 @@ const SideDrawer = () => {
             </IconButton>
           </div>
           <List>
-            <div className="flex box-content justify-between">
+            <div className="flex box-content justify-between px-2">
               <div className="w-10">
                 <Input
-                  label="Search by name/email.."
+                  label="Search by name/email/mob..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <Button onClick={handleSearch} size="md" variant="outlined">
+              <Button onClick={handleSearch} size="md" variant="gradient">
                 Go
               </Button>
             </div>
@@ -230,7 +273,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
-            {loadingChat && <Spinner className="ml-52 mt-2 h-8 w-8" />}
+            {loadingChat && <Spinner className="ml-60 mt-2 h-8 w-8" />}
           </List>
         </Drawer>
       </div>

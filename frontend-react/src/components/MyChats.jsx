@@ -20,7 +20,6 @@ const MyChats = ({ fetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.get("/api/chat", config);
       // console.log(data);
       setChats(data);
@@ -36,12 +35,12 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <div
-      className={`w-full popin relative h-[88vh] md:h-[89vh] md:col-span-1  ${
+      className={`w-full popin relative  md:col-span-1  ${
         selectedChat ? "hidden md:flex" : "flex"
-      } flex-col p-2 border rounded-lg bg-white`}
+      } flex-col px-2 py-1 border rounded-lg bg-white`}
     >
       <div className="flex flex-row justify-between px-2 items-center">
-        <h1 className="text-lg font-medium">MyChats</h1>
+        <h1 className="text-xl font-medium">My Chats</h1>
         <GroupChatModal>
           <Button
             className="flex px-2 my-1 text-sm items-center font-semibold py-2 border"
@@ -50,20 +49,20 @@ const MyChats = ({ fetchAgain }) => {
             variant="text"
           >
             New Group Chat
-            <BsPlus className="text-xl ml-1 font-semibold" />
+            <BsPlus className="text-xl ml-0.5 font-semibold" />
           </Button>
         </GroupChatModal>
       </div>
 
       <div className="flex flex-col p-2">
         {Array.isArray(chats) ? (
-          <div className="space-y-0.5 h-[76vh] scrollbar overflow-y-auto">
+          <div className="space-y-1.5 h-[82vh] scrollbar overflow-y-auto">
             {chats.map((chat) => (
               <div
                 key={chat._id}
                 className={`cursor-pointer text-left p-3 ${
                   selectedChat === chat
-                    ? "bg-[#38B2AC] text-white"
+                    ? "bg-[#55ada9] text-white"
                     : "bg-gray-100 hover:bg-gray-200 text-black"
                 } border-b rounded-md duration-100`}
                 onClick={() => setSelectedChat(chat)}

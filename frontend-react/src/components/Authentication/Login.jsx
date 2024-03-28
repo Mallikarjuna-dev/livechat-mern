@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ handleTabClick }) => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -30,22 +30,21 @@ const Login = () => {
 
     try {
       const config = {
-        Headers: {
+        headers: {
           "Content-type": "application/json",
         },
       };
-      const response = await axios.post(
+      const { data } = await axios.post(
         "/api/user/login",
         { email, password },
         config
       );
-
       toast.success("Login Successful");
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      toast.error("Login failed!", error);
+      toast.error("Login failed! wrong inputs", error);
       setLoading(false);
     }
 
@@ -109,10 +108,21 @@ const Login = () => {
               {loading ? "Loading..." : "Login"}
             </button>
             <button
-              className=" bg-red-600 hover:bg-red-800 duration-300 mt-2 font-normal py-1.5 rounded-md"
+              // disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 duration-300 mt-2 font-medium py-1.5 rounded-md"
               onClick={() => {
-                setEmail("guest@example.com");
-                setPassword("123456");
+                handleTabClick("viaotp");
+              }}
+            >
+              Login via Mobile Number
+            </button>
+            <button
+              className=" bg-red-600 hover:bg-red-800 duration-300 mt-2 font-normal py-1.5 rounded-md"
+              onClick={(e) => {
+                e.preventDefault();
+                toast.warn("Temporarily disabled! Please signup");
+                // setEmail("guest@example.com");
+                // setPassword("123456");
               }}
             >
               Get Guest User Credentials

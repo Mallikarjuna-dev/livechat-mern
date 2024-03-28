@@ -3,7 +3,11 @@ import React from "react";
 
 const ChatLoading = () => {
   return (
-    <Stack>
+    <Stack className="px-2 mt-1">
+      <Skeleton height="45px" />
+      <Skeleton height="45px" />
+      <Skeleton height="45px" />
+      <Skeleton height="45px" />
       <Skeleton height="45px" />
       <Skeleton height="45px" />
       <Skeleton height="45px" />

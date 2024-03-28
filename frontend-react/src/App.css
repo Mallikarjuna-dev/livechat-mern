@@ -10,9 +10,26 @@
 }
 
 .popin {
-  font-family: "Source Sans Pro", Arial, sans-serif;
+  /* font-family: "Source Sans Pro", Arial, sans-serif; */
+  font-family: system-ui;
 }
 
 .scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.notification-badge {
+  position: relative;
+  margin: 0px 22px 0px 0px;
+}
+
+.badge {
+  position: absolute;
+  width: auto;
+  right: 12;
+  font-size: 12px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0px 5px 0px 4px;
 }

@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import OtpInput from "otp-input-react";
 import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setMobile] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [pic, setPic] = useState("");
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [pic, setPic] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate("");
 
@@ -23,10 +22,55 @@ const Signup = () => {
     setShow(!show);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // console.log(name, email, phone, password, confirmPassword);
+    if (!name || !email || !phone || !password || !confirmPassword) {
+      toast.error("Please fill all the required fields!");
+      setLoading(false);
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password must be same!");
+      setLoading(false);
+      return;
+    }
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "/api/user",
+        {
+          name,
+          email,
+          phone: `91${phone}`,
+          password,
+          pic,
+        },
+        config
+      );
+      toast.success("Registaration Successful");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast.error("Failed! user already exists", error);
+      setLoading(false);
+    }
+    setTimeout(() => {
+      setLoading(false);
+      console.log("Form submitted!");
+    }, 2000); // Simulating a 2-second delay
+  };
+
   const PostDetails = (pics) => {
     setLoading(true);
     if (pics === undefined) {
-      toast.warn("Please choose an Image!");
+      toast.warn("Please choose an correct Image!");
       return;
     }
 
@@ -50,61 +94,15 @@ const Signup = () => {
           setLoading(false);
         });
     } else {
-      toast.error("Please select an Image!");
+      toast.warn("Please select an Image!");
       return;
     }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    if (!name || !email || !number || !password || !confirmPassword) {
-      toast.error("Please fill all the required fields!");
-      setLoading(false);
-      return;
-    }
-    if (password !== confirmPassword) {
-      toast.error("Password must be at same!");
-      return;
-    }
-
-    try {
-      const config = {
-        Headers: {
-          "Content-type": "application/json",
-        },
-      };
-      const response = await axios.post(
-        "/api/user",
-        {
-          name,
-          email,
-          number,
-          password,
-          pic,
-        },
-        config
-      );
-
-      toast.success("Registaration Successful");
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
-      setLoading(false);
-      navigate("/");
-    } catch (error) {
-      toast.error("Registration failed!", error);
-      setLoading(false);
-    }
-
-    setTimeout(() => {
-      setLoading(false);
-      console.log("Form submitted!");
-    }, 2000); // Simulating a 2-second delay
   };
 
   return (
     <>
       <section>
+        <div id="recaptcha-container"></div>
         <form
           className="flex flex-col gap-y-1.5 my-2 px-1 text-start"
           onSubmit={handleSubmit}
@@ -115,7 +113,7 @@ const Signup = () => {
             </label>
             <input
               type="text"
-              id="email"
+              id="name"
               className="my-1.5 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               value={name}
               required
@@ -144,27 +142,59 @@ const Signup = () => {
               Mobile Number <span className="text-red-600">*</span>
             </label>
             <input
-              type="number"
+              type="text"
               id="number"
               className="my-1.5 py-1 px-3 border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-              value={number}
+              value={phone}
               required
               placeholder="Enter your mobile number"
-              onChange={(e) => setMobile(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap">
-            <label className="text-sm font-semibold my-1 mr-2">
+
+          {/* <div className="flex flex-col mb-1">
+            <label className="text-sm font-semibold">
+              Mobile Number <span className="text-red-600">*</span>
+            </label>
+            <div className="relative">
+              <PhoneInput
+                type="number"
+                id="number"
+                country={"in"}
+                className="w-full border bg-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                value={phone}
+                required
+                placeholder="Enter your mobile number"
+                onChange={(e) => setPhone(phone)}
+              />
+              <button
+                className="absolute inset-y-0 right-0 font-medium text-sm px-2 rounded-md  bg-teal-400 flex items-center w-fit text-white"
+                onClick={onSignup}
+              >
+                {loading ? "Loading..." : "Send code via SMS"}
+              </button>
+            </div>
+          </div> */}
+          {/* <div className="flex flex-wrap">
+            <label className="text-sm font-semibold mr-2">
               Enter your OTP <span className="text-red-600">*</span>
             </label>
             <OtpInput
+              value={otp}
+              onChange={setOtp}
               OTPLength={6}
               otpType="number"
               disabled={false}
               autoFocus
-              className="opt-container"
+              className="opt-container -mt-1"
             ></OtpInput>
-          </div>
+            <button
+              className="ml-10 font-medium text-sm px-3 py-1 -mt-1 border rounded-md bg-light-green-600 w-auto text-white"
+              onClick={onOTPVerify}
+            >
+              {loading ? "Loading..." : "Verify OTP"}
+            </button>
+          </div> */}
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold">
@@ -196,7 +226,7 @@ const Signup = () => {
             <div className="relative">
               <input
                 type={show ? "text" : "password"}
-                id="password"
+                id="confpassword"
                 className="my-1.5 py-1 w-full px-3 border bg-gray-100 rounded-md"
                 value={confirmPassword}
                 required
@@ -219,7 +249,7 @@ const Signup = () => {
             <input
               type="file"
               id="pic"
-              className="my-1.5 px-3 border bg-gray-100 rounded-md"
+              className="my-1 px-3 border bg-gray-100 rounded-md"
               accept="image/*"
               onChange={(e) => PostDetails(e.target.files[0])}
             />
