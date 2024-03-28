@@ -39,7 +39,7 @@ const MobileLogin = () => {
   const onSignup = async (e) => {
     // e.preventDefault();
     setLoading(true);
-    console.log(phone);
+    // console.log(phone);
     if (!phone) {
       toast.error("Please enter your mobile number!");
       setLoading(false);
@@ -102,7 +102,7 @@ const MobileLogin = () => {
           .then(async (res) => {
             console.log(res);
             // setUser(res.user);
-            console.log(phone);
+            // console.log(phone);
             toast.success("Phone number verified!");
             localStorage.setItem("userInfo", JSON.stringify(user.data));
             setLoading(false);
@@ -145,7 +145,7 @@ const MobileLogin = () => {
     e.preventDefault();
     // setLoading(true);
 
-    console.log(phone);
+    // console.log(phone);
     // if (!phone || !otp) {
     //   toast.error("Please fill all the required fields!");
     //   setLoading(false);
