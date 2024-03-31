@@ -133,9 +133,9 @@ const SideDrawer = () => {
                     {notification.map((notify) => (
                       <div
                         key={notify._id}
-                        className="mb-1"
+                        // className="mb-1"
                         onClick={() => {
-                          console.log("clicked")
+                          // console.log("clicked");
                           setSelectedChat(notify.chat);
                           setNotification(
                             notification.filter((n) => n !== notify)
@@ -143,7 +143,7 @@ const SideDrawer = () => {
                         }}
                       >
                         {notify.chat.isGroupChat
-                          ? `New Message from ${notify.chat.chatName}`
+                          ? `New Message in ${notify.chat.chatName}`
                           : `New Message from ${getSender(
                               user,
                               notify.chat.users
