@@ -127,7 +127,7 @@ const SideDrawer = () => {
                   )}
                   <BsBellFill className="cursor-pointer text-2xl mr-6" />
                 </div>
-                <MenuList className=" -p-1 text-black rounded-xl">
+                <MenuList className="-p-1 text-black rounded-xl">
                   <MenuItem className=" text-gray-700 font-normal">
                     {!notification.length && "No new messages"}
                     {notification.map((notify) => (
@@ -135,6 +135,7 @@ const SideDrawer = () => {
                         key={notify._id}
                         className="mb-1"
                         onClick={() => {
+                          console.log("clicked")
                           setSelectedChat(notify.chat);
                           setNotification(
                             notification.filter((n) => n !== notify)
