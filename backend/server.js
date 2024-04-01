@@ -51,7 +51,7 @@ const server = app.listen(
 );
 
 const io = require("socket.io")(server, {
-  pingTimeout: 60000,
+  pingTimeout: 2000,
   cors: {
     origin: "http://localhost:3000",
   },
