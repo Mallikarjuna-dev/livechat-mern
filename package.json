@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
-    "build": "cd frontend && npm install && npm run build"
+    "server": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
