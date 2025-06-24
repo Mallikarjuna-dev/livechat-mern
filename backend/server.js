@@ -50,12 +50,21 @@ const server = app.listen(
   console.log(`server listening on port: ${port}`.yellow.bold)
 );
 
-const io = require("socket.io")(server, {
+// const io = require("socket.io")(server, {
+//   pingTimeout: 60000,
+//   cors: {
+//     origin: "http://localhost:3000",
+//   },
+// });
+
+const { Server } = require("socket.io");
+const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     origin: "http://localhost:3000",
   },
 });
+
 
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
@@ -74,6 +83,8 @@ io.on("connection", (socket) => {
 
   socket.on("new message", (newMessageRecieved) => {
     // try {
+    console.log(newMessageRecieved)
+
     var chat = newMessageRecieved.chat;
 
     if (!chat.users) return console.log("chat.users not defined");
@@ -88,8 +99,8 @@ io.on("connection", (socket) => {
     // }
   });
 
-  // socket.off("setup", () => {
-  //   console.log("USER DISCONNECTED");
-  //   socket.leave(userData._id);
-  // });
+  socket.on("disconnect", () => {
+    console.log("USER DISCONNECTED");
+    // socket.leave(userData._id);
+  });
 });
