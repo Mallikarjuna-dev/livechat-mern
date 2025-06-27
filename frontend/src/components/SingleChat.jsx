@@ -86,6 +86,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         // console.log(data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
+        setNewMessage("");
       } catch (error) {
         toast.error("Error, Failed to send message");
       }
@@ -113,11 +114,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) {
         //notification
         if (!notification.includes(newMessageRecieved)) {
-          setNotification([newMessageRecieved, ...notification]);
+          setNotification((prev) => [...prev, newMessageRecieved]);
           setFetchAgain(!fetchAgain);
         }
       } else {
-        setMessages([...messages, newMessageRecieved]);
+        setMessages((prev) => [...prev, newMessageRecieved]);
       }
     });
 
