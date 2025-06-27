@@ -180,7 +180,7 @@ const MobileLogin = () => {
       <div id="recaptcha-container"></div>
       <section>
         <form
-          className="flex flex-col gap-y-2 my-2 px-1 text-start"
+          className="flex flex-col gap-y-2 my-2 text-start"
           onSubmit={(e) => onSubmit(e)}
         >
           <div className="flex flex-col mb-1">
@@ -201,7 +201,7 @@ const MobileLogin = () => {
                 onChange={setPhone}
               />
               <button
-                className="absolute inset-y-0 right-0 font-medium text-sm px-2 rounded-md bg-teal-400 flex items-center w-fit text-white"
+                className="absolute inset-y-0 right-0 font-medium text-sm px-0.5 rounded-md bg-teal-400 flex items-center w-fit text-white"
                 onClick={(e) => onSignup(e)}
               >
                 {loading ? "Loading..." : "Send code via SMS"}

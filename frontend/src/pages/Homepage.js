@@ -21,14 +21,14 @@ const Homepage = () => {
   };
 
   return (
-    <div className="container w-4/5 md:w-4/6 lg:w-3/5 xl:w-2/5 mx-auto mt-12 md:mt-16 lg:mt-12 popin">
+    <div className="container w-5/5 md:w-4/6 lg:w-3/5 xl:w-2/5 mx-auto mt-12 md:mt-16 lg:mt-12 popin">
       <div className="bg-white my-2 rounded-lg">
         <h2 className="text-3xl font-normal py-2">Talk-A-Tive</h2>
       </div>
       <div className="bg-white w-full py-2 rounded-lg">
         {activeTab === "viaotp" ? (
           <h4 className="text-xl font-normal rounded-md mx-auto bg-blue-gray-500 text-white py-1.5">
-            Login using mobile otp
+            Login using Mobile OTP
           </h4>
         ) : (
           <div className="flex justify-evenly">
