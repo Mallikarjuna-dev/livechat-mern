@@ -17,6 +17,7 @@ import socket from "../socket"
 
 // import io from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000";
+
 var selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {

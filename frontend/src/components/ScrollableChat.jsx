@@ -44,6 +44,7 @@ const ScrollableChat = ({ messages }) => {
             >
               {m.content}
             </span> */}
+            
             <span
               className={`${
                 m.sender._id === user._id ? "bg-blue-300" : "bg-green-300"
