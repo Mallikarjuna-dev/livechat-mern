@@ -8,18 +8,17 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/chats" element={<Chatpage />} />
       </Routes>
+      
       <ToastContainer
         position="bottom-center"
         theme="colored"
         closeOnClick
         autoClose={2000}
       />
-      {/* </BrowserRouter> */}
     </div>
   );
 }
