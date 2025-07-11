@@ -41,6 +41,7 @@ const Homepage = () => {
             >
               Login
             </button>
+            
             <button
               className={`${activeTab === "signup"
                 ? "bg-blue-gray-500 text-white font-medium"
